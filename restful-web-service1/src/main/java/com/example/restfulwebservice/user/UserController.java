@@ -1,5 +1,6 @@
 package com.example.restfulwebservice.user;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -8,10 +9,10 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+@Slf4j
 @RestController
 public class UserController {
 
-//    @Autowired
     private UserDaoService service;
 
     public UserController(UserDaoService service){
@@ -20,13 +21,14 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> retrieveAllUsers(){
+        log.debug("Users num"+ 11);
+        log.info("Users num"+ 22);
         return service.findAll();
     }
 
     @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id){
         User user = service.findOne(id);
-
         if (user == null) {
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
