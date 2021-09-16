@@ -3,12 +3,14 @@ package com.example.restfulwebservice.user;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reactor.core.publisher.Flux;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -66,11 +68,11 @@ public class UserController {
         return service.findAll();
     }
 
-    @GetMapping("/3second")
-    public Flux<User> findAllUsers() throws Exception{
-        List<User> users = service.findAll();
-        Thread.sleep(3000);
-        return Flux.fromStream(users.stream());
+    @GetMapping("/flux/{id}")
+    public Flux<ServerSentEvent<User>> flux(@PathVariable int id) throws Exception{
+        return Flux.interval(Duration.ofSeconds(1))
+                .map(i-> service.findOne(id))
+                .map(user -> ServerSentEvent.builder(user).build());
     }
 
 
