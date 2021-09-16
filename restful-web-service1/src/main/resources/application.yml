@@ -1,6 +1,9 @@
 
 server:
   port: 8088
+  tomcat:
+    threads:
+      max: 50
 logging:
   level:
     org.springframework: DEBUG

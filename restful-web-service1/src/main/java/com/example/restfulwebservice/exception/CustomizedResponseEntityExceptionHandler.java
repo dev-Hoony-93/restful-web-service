@@ -1,6 +1,7 @@
 package com.example.restfulwebservice.exception;
 
 import com.example.restfulwebservice.user.UserNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Date;
 
+@Slf4j
 @RestController
 @ControllerAdvice //모든컨트롤러가 실행될때
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -28,7 +30,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     public final ResponseEntity<Object> handleUserNotFoundException(Exception ex , WebRequest request){
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-
+        log.error("user Not Found",ex.getMessage());
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 

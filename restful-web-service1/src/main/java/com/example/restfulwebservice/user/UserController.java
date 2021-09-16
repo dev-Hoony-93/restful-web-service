@@ -1,30 +1,32 @@
 package com.example.restfulwebservice.user;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import reactor.core.publisher.Flux;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @Slf4j
 @RestController
 public class UserController {
 
+    @Autowired
     private UserDaoService service;
 
-    public UserController(UserDaoService service){
+    /*public UserController(UserDaoService service){
         this.service = service;
-    }
+    }*/
 
-    @GetMapping("/users")
-    public List<User> retrieveAllUsers(){
-        log.debug("Users num"+ 11);
-        log.info("Users num"+ 22);
-        return service.findAll();
-    }
+
+
 
     @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id){
@@ -56,6 +58,22 @@ public class UserController {
         }
 
     }
+
+
+
+    @GetMapping("/users")
+    public List<User> retrieveAllUsers(){
+        return service.findAll();
+    }
+
+    @GetMapping("/3second")
+    public Flux<User> findAllUsers() throws Exception{
+        List<User> users = service.findAll();
+        Thread.sleep(3000);
+        return Flux.fromStream(users.stream());
+    }
+
+
 
 
 }
