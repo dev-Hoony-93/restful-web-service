@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE Test Page</title>
+    <script>
+        const eventSource = new EventSource('/flux/subscribe'); // 기본적으로 이 URL을 구독하고 있는것
+        eventSource.onopen = (e) => {
+            console.log(e);
+        };
+        eventSource.onerror = (e) => {
+            console.log(e);
+        };
+        eventSource.onmessage = (e) => {
+            document.querySelector("#messages").appendChild(document.createTextNode(e.data + "\n"))
+        };
+
+    </script>
+</head>
+<body>
+<pre id="messages"></pre>
+SSE Test Page
+</body>
+</html>
