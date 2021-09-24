@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reactor.core.publisher.Flux;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.time.Duration;
 import java.util.*;
@@ -34,7 +35,7 @@ public class UserRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user){ // form or json 같은 것을 받으려면 매개변수 타입을 정해줘야한다.
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws IOException{ // form or json 같은 것을 받으려면 매개변수 타입을 정해줘야한다.
         User savedUser = service.save(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -75,7 +76,7 @@ public class UserRestController {
     private static final List<User> list =new ArrayList<>();
 
     @PostMapping("/users/{id}")
-    public void createUser ( @PathVariable int id){
+    public void createUser ( @PathVariable int id) throws IOException {
         User user = new User(id,"창훈",new Date());
         service.save(user);
         list.clear();
