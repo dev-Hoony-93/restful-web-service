@@ -1,18 +1,17 @@
 package com.hoony;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Service {
-    public void sol(){
-        List<User> list = Arrays.asList(new User("hoon"),new User("Lee"), new User("bum"),new User("Song"));
-        Comparator<User> com = (u1,u2) -> u2.name.toLowerCase().compareTo(u1.name.toLowerCase());
-        list.sort(com);
-        list.stream().forEach(System.out::println);
+    public void solution(User [] arr){
+        Arrays.asList(arr).stream()
+                .sorted((u1,u2) -> u2.name.toLowerCase().compareTo(u1.name.toLowerCase()))
+                .forEach(System.out::println);
     }
 
-    public void solution(User [] arr){
+    public void solution2(User [] arr){
         List<User> list = new ArrayList<>();
-        User [] arr = {new User("hoon"),new User("Lee"), new User("bum"),new User("Song")};
         for ( User u: arr ) {
             list.add(u);
         }
@@ -23,16 +22,20 @@ public class Service {
             }
         };
         list.sort(com);
-        for ( User u: list  ) {
-            System.out.println(u);
-        }
-
+        list.stream().forEach(new Consumer<User>() {
+            public void accept(User user) {
+                System.out.println(user);
+            }
+        });
     }
 
 
     public static void main(String[] args) {
         Service s= new Service();
-        s.sol();
-        s.sol2();
+        User [] arr = {new User("hoon"),new User("Lee"), new User("bum"),new User("Song")};
+        s.solution(arr);
+        s.solution2(arr);
+
+
     }
 }

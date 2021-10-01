@@ -65,30 +65,6 @@ public class UserRestController {
 
 
 
-    @GetMapping("/flux/{id}")
-    public Flux<ServerSentEvent<User>> flux(@PathVariable int id) throws Exception{
-        return Flux.interval(Duration.ofSeconds(1))
-                .map(i-> service.findOne(id))
-                .map(user -> ServerSentEvent.builder(user).build());
-    }
-
-
-    private static final List<User> list =new ArrayList<>();
-
-    @PostMapping("/users/{id}")
-    public void createUser ( @PathVariable int id) throws IOException {
-        User user = new User(id,"창훈",new Date());
-        service.save(user);
-        list.clear();
-        list.add(user);
-    }
-
-
-    @GetMapping("/flux/subscribe")
-    public Flux<ServerSentEvent<User>> subscribe() throws Exception{
-        return Flux.fromStream(list.stream().map(user -> ServerSentEvent.builder(user).build()));
-    }
-
 
 
 

@@ -21,9 +21,9 @@ public class UserDaoService {
 //            users.add(new User(i, "hoony"+i , new Date()));
 //        }
 
-        users.add(new User(1,"hoony",new Date()));
-        users.add(new User(2,"Alice",new Date()));
-        users.add(new User(3,"Elena",new Date()));
+        users.add(new User(1,"hoony",new Date(), "pass1","999999-111111"));
+        users.add(new User(2,"Alice",new Date(),"pass2","999999-222222"));
+        users.add(new User(3,"Elena",new Date(),"pass3","999999-333333"));
     }
 
     public List<User> findAll(){

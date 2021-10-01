@@ -1,6 +1,9 @@
 package com.example.restfulwebservice.user;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,11 +17,13 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonFilter("UserInfo") // 임의로 이름 부여.
 public class User {
     private Integer id;
 
     private String name;
     private Date joinDate;
 
-
+    private String password;
+    private String ssn;
 }
