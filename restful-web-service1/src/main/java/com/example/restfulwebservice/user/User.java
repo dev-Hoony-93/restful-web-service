@@ -17,7 +17,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("UserInfo") // 임의로 이름 부여.
+//@JsonFilter("UserInfo") // 임의로 이름 부여.
 public class User {
     private Integer id;
 

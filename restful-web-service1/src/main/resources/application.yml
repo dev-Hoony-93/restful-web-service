@@ -11,3 +11,5 @@ logging:
 spring:
   messages:
     basename: messages
+
+
