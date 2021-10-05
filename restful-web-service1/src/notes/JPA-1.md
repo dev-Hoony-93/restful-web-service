@@ -105,3 +105,16 @@ insert into user values (2,sysdate(), 'User2', 'test2222','807070-2222222')
 insert into user values (3,sysdate(), 'User3', 'test3333','909999-1111111')
 
 ```
+
+
+----
+### JPA Repository 생성
+
+JPA Repository 를 interface로 생성후에 extends JpaRepository<dto타입, 기본키>로 생성
+
+```java
+@Repository
+public interface UserRepository extends JpaRepository<User , Integer> {
+}
+```
+
