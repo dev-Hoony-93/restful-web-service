@@ -34,6 +34,12 @@ public class Service {
         });
     }
 
+    public void solution3(){
+        Optional<User> user = Optional.empty();
+        List<User > users = new ArrayList<>();
+
+    }
+
 
     public static void main(String[] args) {
         Service s= new Service();
